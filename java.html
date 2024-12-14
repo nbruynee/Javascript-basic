@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="java.css">
+</head>
+<script>
+    // declare variable
+    // var name = "Bruyne"
+    // var age = 0 //(= 19 would called is initialize variable)
+    // var classgot  = false
+    // name = window.prompt("Input your name")
+    // name = "Hello " + name // (operand can literal or a variable, + is operator)
+    //if (concatenation: nối chuỗi example: 1 type string + 1 type string)
+    //else (arithmetic operation: phép toán số học example: 1 type numeric)  
+    // age = age + 1 
+    // document.write(name)
+    // document.write(age > 1 * 3) //age called relational operation: phép toán quan hệ
+    // 1 * 3 called arithmetic operation. 
+    // Notice: rithmetic (phép toán số học) will be precendent (độ ưu tiên) higher relational operation(phép toán quan hệ)
+    // document.write(age < 30) this is a comparision operation: phép toán so sánh 
+    // age1 = parseInt(window.prompt("Input your age:")) //parse(chuyển đổi)
+    
+    // if/else
+    // if (age <= 16) {
+    //     document.write("Please out app")
+    // }else {
+    //     document.write("Welcome my app")
+    // }
+
+    //for 
+    // for (var i = 0; i < 10; i++) {
+    //     document.write("Your age is: ", age1 + i  , " year old.<br>")
+    // }
+
+    //Object
+    // var simple = {
+    //     name : "Bruyne", 
+    //     //name : "Bruyne" called property, name called property name/key, "Bruyne" called value
+    //     age : 21,
+    //     status: false,
+    //     address: {
+    //         district: "Dong Nai",
+    //         ward: "Xuan Loc"
+    //     }
+    // }
+    // document.write(simple.status)
+
+
+    //function
+    // var age_calc = () => {
+    //     var year_of_birth = parseInt(window.prompt("Input your Year of Birth"))
+    //     age = 2024 - year_of_birth
+    //     document.write(age)
+    // }
+    // age_calc() // call function to run program
+
+    // var age_calc = (year_of_birth) => { // function(x) varible in function called parameter: tham số
+    //     // var year_of_birth = parseInt(window.prompt("Input your Year of Birth"))
+    //     age = 2024 - year_of_birth
+    //     return age
+    // }
+    // document.write(age_calc(2003)) // The parameters passed to parameter are called arguments: đối số 
+    
+
+    // // arrow function
+    // const hello = (name) => console.log(`Hello ${name}`)
+    // hello("Bri")
+
+    // array
+    // CRUD (Create, Read, Update, Delete)
+    // var a = ["Duy", "Bruyne", "Phat", "Duong", "Khanh", "Phuc", 1]
+    // a.push("An") //Add new element: phần tử at the end of the array
+    // a.pop() //removes (pops) the last element of an array.
+    // filter() // check element has suitable or not 
+    // a[1] = "Bruynee" // edit value of array 
+    // document.write(a[1] + "<br>") 
+    // document.write(a.length)
+
+    //string type 
+    // var s = "Bruyne ne123" 
+    // // s is primitive but why it can access to property. Because in JS, 
+    // // in the mechanism(cơ chế) called type coercion (ép kiểu)
+    // // Got 2 type string is primitive string and object string   
+    // //notice: property, it is own by object, only objects have property
+    // // document.write(s[3])
+    // document.write(s.length)
+    
+    // DOM (document object model) mô hình đối tượng tài liệu
+    var hello = () => {
+        var name = document.getElementById("input_text").value
+        var say_name = "Hello " + name
+        document.getElementById("say_name").innerHTML = say_name
+        // document.write(say_name)
+    }
+
+    //asynchronous (bất đồng bộ)
+    // var notify = () => {
+    //     document.getElementById("say_name").innerHTML = "Start<br>"
+    // }
+    // setTimeout(notify ,3000) 
+    // // has 2 value, first is function(), second is time (milisecond)
+    // document.getElementById("say_name").innerHTML = "Time out<br>";
+
+    document.addEventListener("DOMContentLoaded", () => {
+    // Ensure the DOM is fully loaded before accessing elements
+    const element = document.getElementById("say_name");
+
+    if (element) {
+        var notify = () => {
+            element.innerHTML = "Start<br>";
+        };
+
+        setTimeout(notify, 3000);
+
+        // Update the element after the timeout
+        element.innerHTML = "Time out<br>";
+    } else {
+        console.error('Element with id "say_name" not found.');
+    }
+});
+</script>
+<body>
+    Name <input type="text" id="input_text" value>
+    <Button onclick="hello()">Submit</Button>
+    <div id="say_name"></div>
+</body>
+</html>
