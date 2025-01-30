@@ -1,14 +1,5 @@
 console.log(`Hello World from HTML`)
-
-// + Use without () (pass function, not execute immediately)
-// Use when:
-// Pass function as parameter (callback) for another function to call back later.
-// Just reference(tham chiếu) the function without executing it immediately
-
-// + Use with () (execute immediately)
-// Use when:
-// Want to execute the function immediately.
-// Need to get the return value of the function.
+// JSON data
 
 const callback = (err, data) => {
     if(err) {
@@ -25,14 +16,17 @@ function getTodos(callback) {
     requests.onreadystatechange = function () {
         if (this.readyState == 4 && this.status === 200) {
             // Typical action to be performed when the document is ready:
-            const data = requests.responseText;
+            const data = JSON.parse(requests.responseText);
+            const dataString = JSON.stringify(data);
             callback(undefined, data);
+            callback(undefined, dataString);
+            callback(undefined, requests.responseText);
         } 
         if (this.readyState == 4 && this.status !== 200 ) {
             callback(`Something wrong with data`, undefined);
         }
     };
-    requests.open("GET", "https://jsonplaceholder.typicode.com/todos", true);
+    requests.open("GET", "data.json", true);
     requests.send();
 }
 
