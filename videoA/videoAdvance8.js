@@ -1,9 +1,9 @@
 console.log(`Hello World from HTML`)
-// + Promises
-// Use new Promise() to instantiate a Promise.
-// Promise takes an executor function with two parameters:
-// resolve: Called when the operation(thao tác) is successful and returns data.
-// reject: Called when there is an error or the operation fails.
+// + chain Promises
+
+// When you need to perform multiple asynchronous operations in sequence(bộ tuần tự) (e.g. consecutive(liên tiếp) API calls),
+// instead of nesting callbacks (callback hell), you can chain promises by calling .then() one after another.   
+// Promise chaining: Each .then() returns a new Promise. The result of one .then() is passed to the next .then()
 
 const callback = (err, data) => {
     if (err) {
@@ -27,7 +27,7 @@ function getTodos(id, callback) {
             }
             if (this.readyState == 4 && this.status !== 200) {
                 // callback(`Something wrong with data`, undefined);
-                reject("SomeThing Wrong")
+                reject(`SomeThing Wrong with id: ${id}`)
             }
         };
         requests.open("GET", `https://jsonplaceholder.typicode.com/todos/${id}`, true);
@@ -35,11 +35,34 @@ function getTodos(id, callback) {
     })
 }
 
-getTodos(1).then(data => {
-    console.log(`>>>Data:`, data);
-}).catch(error => {
-    console.log(`Something wrong:`, error)
+getTodos(1).then(data1 => {
+    console.log(`>>>Data 1:`, data1);
+    return getTodos(2);
 })
+    .then(data2 => {
+        console.log(`>>>Data 2:`, data2);
+        return getTodos(3)
+    })
+    .then(data3 => {
+        console.log(`>>>Data 3:`, data3);
+    })
+    .catch(error => {
+        console.log(`Something wrong:`, error)
+    })
+
+// Call getTodos(1) and wait for the result.
+// If successful, call getTodos(2).
+// If successful, call getTodos(3).
+// If there is an error at any step, .catch() will handle the error.
+
+
+
+
+
+
+
+
+
 
 // getTodos(1, (err, data) => {
 //     if (err) {
@@ -65,28 +88,3 @@ getTodos(1).then(data => {
 //         });
 //     }
 // });
-
-
-// const promisesExp = () => {
-//     return new Promise((resolve, reject) => {
-//         resolve({name: 'Bruynene', channel: 'BruyneDinhvac'});
-//         reject('Something Wrong');
-
-//     });
-// }
-
-// promisesExp().then(data => {
-//     console.log(data)
-// })
-// .catch(error => {
-//     console.log(error)
-// });
-
-
-// + .then(data => ...):
-// Called when the Promise completes successfully (resolve is called).
-// data gets the value from resolve.
-
-// + .catch(error => ...):
-// Called when the Promise fails (reject is called).
-// error gets the value from reject.
