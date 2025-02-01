@@ -1,5 +1,53 @@
 console.log(`Hello World from HTML`)
-// Fetch API 
+// Async, Await 
+// async:
+// Turns a regular(thông thường) function into an asynchronous function.
+// When called, an async function always returns a Promise.
+// await:
+// Used inside an async function.
+// Pauses the function execution until the Promise is resolved (resolve/reject).
+// Helps write flatter(phẳng hơn), more readable code instead of using .then().
+
+// -----------------------------------------------------------------------------------------------------------
+// const getNewToDo = async () => {}
+// console.log(getNewToDo());
+
+// getNewToDo is an async function, but currently has no content or action inside it.
+// Every async function always returns a Promise.
+
+// -----------------------------------------------------------------------------------------------------------
+// const getNewToDo = async () => {
+//     let response = fetch(`https://jsonplaceholder.typicode.com/todos/1`);
+//     console.log(`>>> Get data:`, response);
+// }
+// console.log(getNewToDo());
+
+// fetch() is called without await, so the response will be an unfinished Promise (<pending>). 
+// fetch() is an asynchronous function, requiring await or .then() to wait for the result.
+// The data is not displayed immediately, only the Promise is shown, because you have not waited for fetch() to complete.
+
+// -----------------------------------------------------------------------------------------------------------
+const getNewToDo = async () => {
+    let response = await fetch(`https://jsonplaceholder.typicode.com/todos/1`);
+    let data = await response.json();
+    console.log(`>>>Get data:`, data)
+}
+console.log(getNewToDo());
+
+// await waits for fetch() to complete before assigning a value to the response.
+// Next, await response.json() waits for the JSON result from the response.
+// The final result is the full JSON data object.
+
+// -----------------------------------------------------------------------------------------------------------
+const getNewToDo1 = async (id) => {
+    let response = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`);
+    let data = await response.json();
+    return data;
+}
+
+getNewToDo1(1).then(data => {
+    console.log(`>>>Check data:`, data);
+} );
 
 const callback = (err, data) => {
     if (err) {
@@ -30,6 +78,8 @@ function getTodos(id, callback) {
         requests.send();
     })
 }
+
+
 // -----------------------------------------------------------------------------------------------------------
 // fetch('https://jsonplaceholder.typicode.com/todos/1').then(data => {
 //     console.log(`Check Fetch Data: `, data);
@@ -51,11 +101,12 @@ function getTodos(id, callback) {
 // Problem: Need to wait (await) or handle with .then() to get result from data.json().
 
 // -----------------------------------------------------------------------------------------------------------
-fetch('https://jsonplaceholder.typicode.com/todos/1').then(data => {
-    return data.json()
-}).then(data => {
-    console.log(`Check Fetch Data: `, data);
-})
+// fetch('https://jsonplaceholder.typicode.com/todos/1').then(data => {
+//     return data.json()
+// }).then(data => {
+//     console.log(`Check Fetch Data: `, data);
+// })
+
 // data.json() returns a Promise containing the JSON parse result.
 // Use .then() next to handle the result when the Promise is resolved.
 
